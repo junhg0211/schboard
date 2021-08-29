@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+.main {
+    display: flex;
+    font-family: "Pretendard", "Noto Sans CJK KR", sans-serif;
+}
+
+.sidebar {
+    text-align: justify;
+    max-width: 300px;
+    max-height: 100vh;
+    flex-grow: 1;
+    overflow-y: scroll;
+    padding: 0 1rem;
+}
+
+.sidebar div { margin-bottom: 1rem; }
