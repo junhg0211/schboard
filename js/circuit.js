@@ -120,7 +120,7 @@ class Wire extends BasicWire {
 }
 
 class Part extends Rectangle {
-    static color = WHITE;
+    static backgroundColor = WHITE;
     static textColor = BLACK;
     static borderColor = BLACK;
     static directionIndicatorColor = LIGHT_GREY;
@@ -132,7 +132,7 @@ class Part extends Rectangle {
         super(
             camera, x, y,
             direction in VERTICAL ? horizontal : vertical,
-            direction in VERTICAL ? vertical : horizontal, Part.color
+            direction in VERTICAL ? vertical : horizontal, Part.backgroundColor
         );
 
         this.name = name;
@@ -582,6 +582,39 @@ class SevenSegment extends Part {
     }
 }
 
+class Switch extends Part {
+    static horizontal = 50;
+    static vertical = 50;
+    static pressedColor = LIGHT_GREY;
+
+    constructor(camera, x, y, direction) {
+        super(camera, x, y, Switch.horizontal, Switch.vertical, [], [new Socket(camera, 0, 0)], direction, "Tog.");
+
+        this.pressed = false;
+    }
+
+    tick() {
+        super.tick();
+
+        if (
+            leftStart
+            && this.x < this.camera.obscurizeX(mouseX) && this.camera.obscurizeX(mouseX) < this.x + this.width
+            && this.y < this.camera.obscurizeY(mouseY) && this.camera.obscurizeY(mouseY) < this.y + this.height
+        ) {
+            this.pressed = true;
+        } else if (leftEnd && this.pressed) {
+            this.setSocketOut(0, !this.outSockets[0].state);
+            this.pressed = false;
+        }
+
+        this.color = this.pressed ? Switch.pressedColor : Part.backgroundColor;
+    }
+
+    stringify() {
+        return `B[${this.x},${this.y},${this.direction}]`;
+    }
+}
+
 class SocketHighlighter {
     static defaultColor = RED;
 
@@ -714,6 +747,12 @@ function getPart(string) {
             y = parseInt(rawNumbers[1]),
             direction = parseInt(rawNumbers[2]);
         return new SevenSegment(camera, x, y, direction);
+    } else if (string[0] === "B") {
+        let rawNumbers = string.substring(2, string.length - 1).split(",", 3);
+        let x = parseInt(rawNumbers[0]),
+            y = parseInt(rawNumbers[1]),
+            direction = parseInt(rawNumbers[2]);
+        return new Switch(camera, x, y, direction);
     }
 }
 
@@ -796,6 +835,9 @@ function circuitTick() {
     }
     if (isStartKey("KeyS")) {
         objectManager.add(new SevenSegment(camera, camera.obscurizeX(mouseX), camera.obscurizeY(mouseY), lastDirection));
+    }
+    if (isStartKey("KeyW")) {
+        objectManager.add(new Switch(camera, camera.obscurizeX(mouseX), camera.obscurizeY(mouseY), lastDirection))
     }
     if (isStartKey("KeyA") && enableAnd) {
         addPart(
