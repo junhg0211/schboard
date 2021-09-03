@@ -7,7 +7,6 @@
 * Component 열어서 안에 있는 거 수정하기
 * Component 이름 수정하기
 * Component 삭제하기
-* 단축키 눌러서 추가할 수 있는 것들 `lastDirection` 방향 맞춰서 추가될 수 있도록 하기
 
 ## Components
 
