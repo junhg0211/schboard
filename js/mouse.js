@@ -65,7 +65,12 @@ function mouseTick() {
     previousX = mouseX;
     previousY = mouseY;
 
-    if (leftEnd) selectedPart = null;
+    if (leftEnd) {
+        if (selectedPart) {
+            selectedPart.inGrid();
+        }
+        selectedPart = null;
+    }
 }
 
 

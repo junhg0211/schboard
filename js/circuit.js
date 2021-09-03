@@ -149,8 +149,16 @@ class Part extends Rectangle {
 
         this.outline = new DrawRectangle(this.camera, this.x, this.y, this.width, this.height, Part.borderColor, 2);
 
+        this.inGrid();
+    }
+
+    inGrid() {
+        this.setX(Math.round(this.x / GRID_SIZE) * GRID_SIZE);
+        this.setY(Math.round(this.y / GRID_SIZE) * GRID_SIZE);
         this.replaceSockets();
         this.replaceIndicator();
+        if (this.inSockets) this.wires.forEach(wire => wire.replace());
+        if (this.outSockets) this.wires.forEach(wire => wire.replace());
     }
 
     cutAll() {
@@ -300,7 +308,8 @@ class Part extends Rectangle {
             && selectedPart === null
             && this.x < this.camera.obscurizeX(mouseX) && this.camera.obscurizeX(mouseX) < this.x + this.width
             && this.y < this.camera.obscurizeY(mouseY) && this.camera.obscurizeY(mouseY) < this.y + this.height
-            && objectManager.objects.indexOf(this) !== -1) {
+            && objectManager.objects.indexOf(this) !== -1
+        ) {
             selectedPart = this;
         }
 

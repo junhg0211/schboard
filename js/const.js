@@ -21,3 +21,5 @@ const RED = "#ff0000";
 const YELLOW = "#ffff00";
 const GREEN = "#00ff00";
 const BACKGROUND_COLOR = "#163b2d";
+
+const GRID_SIZE = 10;
