@@ -907,7 +907,7 @@ function circuitTick() {
     if (isStartKey("KeyT")) {
         notWires = !notWires;
     }
-    if (isStartKey("Delete")) {
+    if (isStartKey("Delete") || isStartKey("Backspace")) {
         let part = getClosestPart();
         if (part !== null) {
             part.cutAll();
