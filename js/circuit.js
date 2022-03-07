@@ -117,6 +117,18 @@ class Wire extends BasicWire {
 
         super.tick();
     }
+
+    render() {
+        if (notWires) {
+            this.color = `${this.color}20`;
+        }
+
+        super.render();
+
+        if (notWires) {
+            this.color = this.color.substring(0, 7);
+        }
+    }
 }
 
 class Part extends Rectangle {
@@ -891,6 +903,9 @@ function circuitTick() {
     }
     if (isStartKey("KeyC")) {
         packCircuit();
+    }
+    if (isStartKey("KeyT")) {
+        notWires = !notWires;
     }
     if (isStartKey("Delete")) {
         let part = getClosestPart();

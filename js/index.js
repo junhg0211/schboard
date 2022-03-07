@@ -7,6 +7,8 @@ let enableAnd = false,
     enableDiode = false,
     enableGND = false;
 
+let notWires = false;
+
 let socketHighlighter = new SocketHighlighter();
 let selectedSocketHighlighter = new SocketHighlighter(0, 0, GREEN);
 let wireHint = new Line(camera, 0, 0, 0, 0, YELLOW)
