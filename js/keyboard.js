@@ -1,7 +1,8 @@
 let keys = [];
 
 let previousKeys = [],
-    startKeys = [];
+    startKeys = [],
+    endKeys = [];
 
 function keydown(event) {
     keys.push(event.code);
@@ -19,9 +20,15 @@ function keyup(event) {
 
 function keyboardTick() {
     startKeys = [];
+    endKeys = [];
     keys.forEach(key => {
         if (previousKeys.indexOf(key) === -1) {
             startKeys.push(key);
+        }
+    });
+    previousKeys.forEach(key => {
+        if (keys.indexOf(key) === -1) {
+            endKeys.push(key);
         }
     });
 
@@ -35,5 +42,10 @@ function isKey(keyCode) {
 function isStartKey(keyCode) {
     return startKeys.indexOf(keyCode) !== -1;
 }
+
+function isEndKey(keyCode) {
+    return endKeys.indexOf(keyCode) !== -1;
+}
+
 window.addEventListener("keydown", keydown);
 window.addEventListener("keyup", keyup);

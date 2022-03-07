@@ -31,6 +31,11 @@ class Camera {
             this.moving = false;
         }
 
+        if (!this.moving && isKey("Space")) {
+            this.moving = true;
+        } else if (isEndKey("Space")) {
+            this.moving = false;
+        }
         if (this.moving) {
             this.x -= mouseDeltaX / this.zoom;
             this.y -= mouseDeltaY / this.zoom;

@@ -883,7 +883,7 @@ function circuitTick() {
     if (isStartKey("KeyC")) {
         packCircuit();
     }
-    if (isStartKey("Delete")) {
+    if (isStartKey("Delete") || isStartKey("Backspace")) {
         let part = getClosestPart();
         if (part !== null) {
             part.cutAll();
