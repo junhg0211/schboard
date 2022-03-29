@@ -62,7 +62,6 @@ function addComponent(circuit) {
 function packCircuit() {
     let name = prompt("이름?");
     if (!name) {
-        alert("취소되었습니다.");
         return;
     }
     let circuit = circuitize(name);
